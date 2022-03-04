@@ -1,6 +1,6 @@
 public class PrintIntegerVariable {
     public static void main(int número) {
-        int numero = número;
-        System.out.println("Avenida Andaló, " + numero );
+        int numero = 311;
+        System.out.printf("Avenida Andaló, %d\n", numero );
     }
 }
