@@ -4,7 +4,7 @@ public class Gerente extends Empregado{
     }
 
     @Override
-    double calcularBonus(Departamento departamento){
+    public double calcularBonus(Departamento departamento){
         if(departamento.alcancouMeta()){
             if (departamento.getValorMeta() < departamento.getValorAtingidoMeta()){
                 double porcentagemAdc = (departamento.getValorAtingidoMeta() - departamento.getValorMeta())*0.01;
