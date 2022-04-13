@@ -46,12 +46,9 @@ public class ContaBancariaBasica {
     }
 
     double calcularTarifaMensal(){
-        double porcentagem = this.getSaldo()*0.1;
-        if ( porcentagem < 10){
-            return porcentagem;
-        } else {
-            return 10.0;
-        }
+        double valorPercentual = Math.max(0.0, saldo * 0.1);
+        double valorTarifa = Math.min(10.00, valorPercentual);
+        return valorTarifa;
     }
 
     double calcularJurosMensal(){
@@ -66,8 +63,8 @@ public class ContaBancariaBasica {
     }
 
     void aplicarAtualizacaoMensal(){
-        this.saldo = this.saldo - this.calcularTarifaMensal();
-        this.saldo = this.saldo + this.calcularJurosMensal();
+        double valorAjuste = calcularJurosMensal() - calcularTarifaMensal();
+        saldo += valorAjuste;
     }
 
 }
