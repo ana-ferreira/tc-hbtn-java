@@ -2,9 +2,9 @@ import exceptions.OperacaoInvalidaException;
 
 public class ContaBancariaBasica {
 
-    private String numeracao;
-    private double saldo;
-    private double taxaJurosAnual;
+    protected String numeracao;
+    protected double saldo;
+    protected double taxaJurosAnual;
 
     public ContaBancariaBasica(String numeracao, double taxaJurosAnual) {
         this.numeracao = numeracao;
@@ -46,27 +46,25 @@ public class ContaBancariaBasica {
     }
 
     double calcularTarifaMensal(){
-        double porcentagem = this.getSaldo()*0.1;
-        if ( porcentagem < 10){
-            return porcentagem;
-        } else {
-            return 10.0;
-        }
+        double valorPercentual = Math.max(0.0, saldo * 0.1);
+        double valorTarifa = Math.min(10.00, valorPercentual);
+        return valorTarifa;
     }
 
     double calcularJurosMensal(){
         if(this.getSaldo() < 0){
             return 0;
         } else {
-            double porcentagem = this.getTaxaJurosAnual() / 1200;
+            double porcentagem = (this.getTaxaJurosAnual() / 12) / 100;
             double valorJuros = this.getSaldo() * porcentagem;
+            valorJuros = Math.max(0.00, valorJuros);
             return valorJuros;
         }
     }
 
     void aplicarAtualizacaoMensal(){
-        this.saldo = this.saldo - this.calcularTarifaMensal();
-        this.saldo = this.saldo + this.calcularJurosMensal();
+        double valorAjuste = calcularJurosMensal() - calcularTarifaMensal();
+        saldo += valorAjuste;
     }
 
 }

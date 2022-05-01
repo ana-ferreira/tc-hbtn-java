@@ -10,19 +10,9 @@ public class ContaBancariaControlada extends ContaBancariaBasica{
     }
 
     @Override
-    void aplicarAtualizacaoMensal(){
-        if (this.getSaldo() < this.saldoMinimo || this.getSaldo() == 0){
-            // como modificar o saldo private?
-        }
+    public void aplicarAtualizacaoMensal(){
+        super.aplicarAtualizacaoMensal();
+        this.saldo -= this.saldo < saldoMinimo ? valorPenalidade : 0;
     }
-
-    /**
-     * OK herda da classe ContaBancariaBasica
-     * contém os seguintes atributos privados:
-     * saldoMinimo do tipo double, é o saldo mínimo que conta deve ter para não ser taxada.
-     * valorPenalidade do tipo double, é o valor de penalidade a aplicar à conta em que o saldo esteja abaixo do saldo mínimo.
-     * OK crie construtor que receba todos valores recebidos pela super classe acrescentado de saldoMinimo e valorPenalidade.
-     * sobrescreva o método aplicarAtualizacaoMensal para aplicar a penalidade caso o saldo esteja abaixo do saldo mínimo ou igual a zero.
-     */
 
 }
